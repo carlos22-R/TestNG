@@ -60,8 +60,17 @@ public class SocialMediaPageTest extends BaseTest {
     socialMediaIcons.closeWindow(1);
   }
 
+@Test
+  void goToWhatsApp() {
+  Assert.assertEquals(socialMediaIcons.clickOnWhatsAppIcon(),"https://api.whatsapp.com/send?phone=50360605555");
+  socialMediaIcons.closeWindow(1);
+}
 
-
+  @Test
+  void goToInstagram() {
+    Assert.assertEquals(socialMediaIcons.clickOnInstagramIcon(),"https://www.instagram.com/claroelsalvador/");
+    socialMediaIcons.closeWindow(1);
+  }
 
 
 

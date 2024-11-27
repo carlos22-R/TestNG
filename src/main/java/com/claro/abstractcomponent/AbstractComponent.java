@@ -50,7 +50,7 @@ public class AbstractComponent {
   public void closeLogin( WebElement modal){
     try {
 
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
       WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(modal));
       closeButton.click();
     }catch (Exception e){

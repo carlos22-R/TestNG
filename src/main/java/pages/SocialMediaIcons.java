@@ -21,7 +21,7 @@ public class SocialMediaIcons extends AbstractComponent {
   WebDriver driver;
 
   // no se ha actualizado la url
-  @FindBy(how = How.XPATH, using = "//a[@href='https://twitter.com/claroelsalvador']")
+  @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl/dd[2]/a")
   private WebElement XIcon;
 
   List<String> links = Arrays.asList("https://www.facebook.com/claroelsalvador","https://twitter.com/claroelsalvador","http://instagram.com/claroelsalvador","https://api.whatsapp.com/send?phone=50360605555");
@@ -34,13 +34,15 @@ public class SocialMediaIcons extends AbstractComponent {
   private WebElement closeLoginFacebook;
   // no tiene el certificado de seguridad
 
-  @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl/dd[2]/a")
+  @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl/dd[3]/a")
   private WebElement instagramIcon;
+  @FindBy(how = How.XPATH,using = "/html/body/div[5]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div[1]/div/div/svg")
+  private WebElement closeLoginInstagram;
   @FindBy(how = How.XPATH, using = "//*[@id=\"layers\"]/div/div[2]/div/div/div/button")
   private WebElement modalX;
   // Path diferente a los anteriores
 
-  @FindBy(how = How.XPATH, using = "//(//a[@class='icoRs'])[4]")
+  @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl/dd[4]/a")
   private WebElement whatsAppIcon;
 
   @FindBy(how = How.XPATH, using = "//div[@class='footerRS fRSBtns fRSBtnsLibRec']//dl")
@@ -71,7 +73,7 @@ public class SocialMediaIcons extends AbstractComponent {
   }
 
   public String clickOnXIcon() {
-      instagramIcon.click();
+      XIcon.click();
       String url=switchToWindow(1);
       waitTime(3000);
       modalX.click();
@@ -80,12 +82,20 @@ public class SocialMediaIcons extends AbstractComponent {
 
   }
 
-  public void cickOnInstagramIcon() {
-    // Click on Instagram icon
+  public String clickOnInstagramIcon() {
+    instagramIcon.click();
+    String url=switchToWindow(1);
+    waitTime(3000);
+    closeLogin(closeLoginInstagram);
+    waitTime(3000);
+    return url;
   }
 
-  public void clickOnWhatsAppIcon() {
-    // Click on WhatsApp icon
+  public String clickOnWhatsAppIcon() {
+      whatsAppIcon.click();
+      String url=switchToWindow(1);
+      waitTime(3000);
+      return url;
   }
 
   public boolean iconsPresent(){
