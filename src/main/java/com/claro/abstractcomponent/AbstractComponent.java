@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.interactions.Actions;
 import java.time.Duration;
 
 public class AbstractComponent {
@@ -64,5 +64,20 @@ public class AbstractComponent {
     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", element);
   }
 
+  public void navbarHover(By element,By submenu){
+    try {
+
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+      WebElement navbarElement = wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+      Actions actions = new Actions(driver);
+      actions.moveToElement(navbarElement).perform();
+      WebElement submenuElement = wait.until(ExpectedConditions.elementToBeClickable(submenu));
+      submenuElement.click();
+      waitTime(3000);
+    }catch (Exception e){
+      System.out.println("Error: " + e.getMessage());
+    }
+
+  }
 
 }
