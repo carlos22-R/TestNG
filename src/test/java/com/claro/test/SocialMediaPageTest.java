@@ -54,6 +54,12 @@ public class SocialMediaPageTest extends BaseTest {
     socialMediaIcons.closeWindow(1);
   }
 
+  @Test
+  void goToTwitter() {
+    Assert.assertEquals(socialMediaIcons.clickOnXIcon(),"https://x.com/claroelsalvador");
+    socialMediaIcons.closeWindow(1);
+  }
+
 
 
 

@@ -30,12 +30,14 @@ public class SocialMediaIcons extends AbstractComponent {
 
   @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl/dd[1]/a")
   private WebElement facebookIcon;
-
+  @FindBy(how= How.XPATH,using = "//div[@aria-label='Cerrar']")
+  private WebElement closeLoginFacebook;
   // no tiene el certificado de seguridad
 
-  @FindBy(how = How.XPATH, using = "//a[@href='http://instagram.com/claroelsalvador']")
+  @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl/dd[2]/a")
   private WebElement instagramIcon;
-
+  @FindBy(how = How.XPATH, using = "//*[@id=\"layers\"]/div/div[2]/div/div/div/button")
+  private WebElement modalX;
   // Path diferente a los anteriores
 
   @FindBy(how = How.XPATH, using = "//(//a[@class='icoRs'])[4]")
@@ -62,14 +64,19 @@ public class SocialMediaIcons extends AbstractComponent {
   public String clickOnFacebookIcon() {
     facebookIcon.click();
     String url= switchToWindow(1);
-    waitTime();
-    closeLogin();
-    waitTime();
+    waitTime(3000);
+    closeLogin(closeLoginFacebook);
+    waitTime(3000);
     return url;
   }
 
-  public void clickOnXIcon() {
-    XIcon.click();
+  public String clickOnXIcon() {
+      instagramIcon.click();
+      String url=switchToWindow(1);
+      waitTime(3000);
+      modalX.click();
+      waitTime(3000);
+      return url;
 
   }
 

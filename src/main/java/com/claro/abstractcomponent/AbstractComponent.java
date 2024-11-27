@@ -29,9 +29,9 @@ public class AbstractComponent {
     }
   }
 
-  public void waitTime(){
+  public void waitTime(int milliseconds) {
     try {
-      Thread.sleep(3000);
+      Thread.sleep(milliseconds);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
@@ -47,11 +47,11 @@ public class AbstractComponent {
     driver.switchTo().window((String) windowHandles[index-1]);
   }
 
-  public void closeLogin(){
+  public void closeLogin( WebElement modal){
     try {
 
       WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
-      WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@aria-label='Cerrar']")));
+      WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(modal));
       closeButton.click();
     }catch (Exception e){
       System.out.println("Error: " + e.getMessage());
