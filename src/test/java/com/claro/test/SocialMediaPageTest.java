@@ -31,8 +31,8 @@ public class SocialMediaPageTest extends BaseTest {
 
 
   @Test
-  void clickOnXIcon() {
-
+  void goToSocialMediaPage() {
+    /*
     String expectedUrl = "https://x.com/claroelsalvador";
     socialMediaIcons.clickOnXIcon();
 
@@ -40,9 +40,18 @@ public class SocialMediaPageTest extends BaseTest {
     socialMediaIcons.waitForVisual(2000);
     driver.close();
     socialMediaIcons.switchToTab(0,driver);
+*/
 
-    Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+    socialMediaIcons.scrollToFooter();
+    Assert.assertTrue(socialMediaIcons.iconsPresent());
+    //Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
 
+  }
+
+  @Test
+  void goToFacebook() {
+    Assert.assertEquals(socialMediaIcons.clickOnFacebookIcon(),"https://www.facebook.com/claroelsalvador");
+    socialMediaIcons.closeWindow(1);
   }
 
 

@@ -3,6 +3,10 @@ package pages;
 import com.claro.abstractcomponent.AbstractComponent;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,11 +24,11 @@ public class SocialMediaIcons extends AbstractComponent {
   @FindBy(how = How.XPATH, using = "//a[@href='https://twitter.com/claroelsalvador']")
   private WebElement XIcon;
 
+  List<String> links = Arrays.asList("https://www.facebook.com/claroelsalvador","https://twitter.com/claroelsalvador","http://instagram.com/claroelsalvador","https://api.whatsapp.com/send?phone=50360605555");
 
 
 
-
-  @FindBy(how = How.XPATH, using = "//a[@href='https://www.facebook.com/claroelsalvador']']")
+  @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl/dd[1]/a")
   private WebElement facebookIcon;
 
   // no tiene el certificado de seguridad
@@ -43,7 +47,8 @@ public class SocialMediaIcons extends AbstractComponent {
   @FindBy(id = "themaCookieModal")
   WebElement cookieModal;
 
-
+ @FindBy(how = How.XPATH, using = "//*[@id=\"initial\"]/footer/div[1]/div/div[2]/dl")
+ private WebElement socialSection;
 
 
   @FindBy(xpath = "//button[@class='fancybox-button fancybox-close-small']")
@@ -54,8 +59,13 @@ public class SocialMediaIcons extends AbstractComponent {
     super(driver);
   }
 
-  public void clickOnFacebookIcon() {
-    // Click on Facebook icon
+  public String clickOnFacebookIcon() {
+    facebookIcon.click();
+    String url= switchToWindow(1);
+    waitTime();
+    closeLogin();
+    waitTime();
+    return url;
   }
 
   public void clickOnXIcon() {
@@ -71,7 +81,33 @@ public class SocialMediaIcons extends AbstractComponent {
     // Click on WhatsApp icon
   }
 
+  public boolean iconsPresent(){
+    if (socialSection.isDisplayed()){
+      List<WebElement> list = socialSection.findElements(By.xpath("./*"));
+      // System.out.println(list.size());
+      if (list.size() == 5){
+        int count = 0;
+        for (WebElement element : list) {
+          if (count!=0){
 
+            //System.out.println(element.findElement(By.tagName("a")).getAttribute("href"));
+            if (!links.contains(element.findElement(By.tagName("a")).getAttribute("href"))){
+              System.out.println("The element no contains the link correctly");
+              return false;
+            }
+          }
+          count++;
+        }
+        return true;
+      }else {
+        System.out.println("There is no icons present");
+        return false;
+      }
+    }else {
+      System.out.println("The section is not present");
+      return false;
+    }
+  }
 
   public void closeCookieModal(){
     try {
@@ -93,9 +129,7 @@ public class SocialMediaIcons extends AbstractComponent {
 
   public void scrollToFooter() {
     try {
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
-      wait.until(ExpectedConditions.visibilityOf(footer));
-      ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", footer);
+      scrollToElement(footer);
     } catch (Exception e) {
 
     }
