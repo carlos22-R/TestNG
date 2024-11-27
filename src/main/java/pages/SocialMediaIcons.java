@@ -2,6 +2,8 @@ package pages;
 
 import com.claro.abstractcomponent.AbstractComponent;
 import java.time.Duration;
+import java.util.ArrayList;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +19,10 @@ public class SocialMediaIcons extends AbstractComponent {
   // no se ha actualizado la url
   @FindBy(how = How.XPATH, using = "//a[@href='https://twitter.com/claroelsalvador']")
   private WebElement XIcon;
+
+
+
+
 
   @FindBy(how = How.XPATH, using = "//a[@href='https://www.facebook.com/claroelsalvador']']")
   private WebElement facebookIcon;
@@ -37,10 +43,14 @@ public class SocialMediaIcons extends AbstractComponent {
   @FindBy(id = "themaCookieModal")
   WebElement cookieModal;
 
+
+
+
   @FindBy(xpath = "//button[@class='fancybox-button fancybox-close-small']")
   private WebElement closeCookieModalButton;
 
   public SocialMediaIcons(WebDriver driver) {
+
     super(driver);
   }
 
@@ -78,5 +88,29 @@ public class SocialMediaIcons extends AbstractComponent {
       System.out.println("Error: " + e.getMessage());
     }
   }
+
+
+
+  public void scrollToFooter() {
+    try {
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
+      wait.until(ExpectedConditions.visibilityOf(footer));
+      ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", footer);
+    } catch (Exception e) {
+
+    }
+  }
+
+
+  public void switchToTab(int tabIndex, WebDriver driver) {
+    ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+    if (tabIndex < tabs.size()) {
+      driver.switchTo().window(tabs.get(tabIndex));
+    } else {
+      throw new IllegalArgumentException("Índice de pestaña inválido: " + tabIndex);
+    }
+  }
+
+
 
 }

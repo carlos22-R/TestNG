@@ -14,6 +14,17 @@ public class AbstractComponent {
   }
 
 
+  public void waitForVisual(int milliseconds) {
+    try {
+      Thread.sleep(milliseconds);
+    } catch (InterruptedException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+  }
+
+
+
+
 
 
 }
