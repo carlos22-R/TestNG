@@ -2,6 +2,7 @@ package com.claro.test;
 
 import com.claro.testcomponents.BaseTest;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.PlanInternet;
@@ -25,6 +26,19 @@ public class PlanInternetTest extends BaseTest {
     }
     @Test
     void testPageInit(){
-        planInternet.navbarNavigate();
+        Assert.assertTrue(planInternet.navbarNavigate());
+        Assert.assertEquals(planInternet.switchToWindow(0),"https://www.claro.com.sv/personas/servicios/servicios-moviles/pospago/");
+
     }
+    @Test
+    void testPlanInternet(){
+        planInternet.waitTime(1000);
+        Assert.assertTrue(planInternet.navigateToPlan());
+    }
+    @Test
+    void testPlanInternetExist(){
+        Assert.assertTrue(planInternet.planPresent());
+        planInternet.waitTime(2000);
+    }
+
 }

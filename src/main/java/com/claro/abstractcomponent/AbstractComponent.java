@@ -47,6 +47,22 @@ public class AbstractComponent {
     driver.switchTo().window((String) windowHandles[index-1]);
   }
 
+  public boolean ElementClick(WebElement element){
+    try {
+
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+      WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(element));
+      return true;
+    }catch (Exception e){
+      System.out.println("Error: " + e.getMessage());
+      return false;
+    }
+  }
+  public void viewElement(){
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(4000));
+    WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("MoldalMolMain")));
+    System.out.println(modal.getText());
+  }
   public void closeLogin( WebElement modal){
     try {
 
@@ -64,7 +80,7 @@ public class AbstractComponent {
     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", element);
   }
 
-  public void navbarHover(By element,By submenu){
+  public boolean navbarHover(By element,By submenu){
     try {
 
       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -74,8 +90,10 @@ public class AbstractComponent {
       WebElement submenuElement = wait.until(ExpectedConditions.elementToBeClickable(submenu));
       submenuElement.click();
       waitTime(3000);
+      return true;
     }catch (Exception e){
       System.out.println("Error: " + e.getMessage());
+      return false;
     }
 
   }
